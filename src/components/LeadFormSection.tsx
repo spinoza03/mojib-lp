@@ -39,6 +39,10 @@ const LeadFormSection = () => {
       description: "غادي نتواصلو معاك قريباً إن شاء الله.",
     });
 
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "Lead");
+    }
+
     // Also send via WhatsApp
     const message = `🏥 طلب تجربة مجانية:\n📋 العيادة: ${formData.clinicName}\n📍 المدينة: ${formData.city}\n💬 ميساجات/يوم: ${formData.messagesPerDay}\n📱 واتساب: ${formData.whatsapp}`;
     window.open(
