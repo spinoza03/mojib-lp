@@ -60,7 +60,15 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a href="#lead-form" className="btn-primary text-center">
+          <a
+            href="#lead-form"
+            className="btn-primary text-center"
+            onClick={() => {
+              if (typeof window !== "undefined" && (window as any).fbq) {
+                (window as any).fbq("track", "ViewContent");
+              }
+            }}
+          >
             جرّب 7 أيام بالمجان دابا 🚀
           </a>
           <a
