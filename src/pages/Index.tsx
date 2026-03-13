@@ -3,6 +3,7 @@ import LossSection from "@/components/LossSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import LeadFormSection from "@/components/LeadFormSection";
+import PricingSection from "@/components/PricingSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
       <FeaturesSection />
       <HowItWorksSection />
       <LeadFormSection />
+      <PricingSection />
       <Footer />
     </div>
   );
