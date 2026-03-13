@@ -4,7 +4,7 @@ import mojibLogo from "@/assets/mojib-logo.png";
 const HeroSection = () => {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center px-4 pt-20 pb-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden"
       dir="rtl"
     >
       {/* Floating orbs */}
@@ -28,13 +28,15 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+          className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 md:mb-6"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="text-foreground">وقف ضياع الفلوس!</span>{" "}
-          <span className="text-3xl md:text-5xl">🛑</span>
+          <span className="text-foreground flex items-center justify-center flex-wrap gap-2 text-3xl md:text-6xl">
+            <span>وقف ضياع الفلوس!</span>
+            <span>🛑</span>
+          </span>
           <br />
           <span className="gradient-text">
             حوّل كل ميساج واتساب لموعد حقيقي فعيادتك
@@ -42,7 +44,7 @@ const HeroSection = () => {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed"
+          className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 md:mb-10 leading-relaxed"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}

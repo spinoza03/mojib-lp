@@ -3,7 +3,7 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 
 const LossSection = () => {
   return (
-    <section className="py-20 px-4 relative" dir="rtl">
+    <section className="py-12 md:py-20 px-4 relative" dir="rtl">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/5 blur-[150px]" />
 
       <div className="container max-w-6xl mx-auto z-10 relative">
@@ -28,7 +28,7 @@ const LossSection = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Without Mojib */}
           <motion.div
-            className="glass-card p-8"
+            className="glass-card p-6 md:p-8"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -39,7 +39,7 @@ const LossSection = () => {
               <div className="w-12 h-12 rounded-xl bg-destructive/20 flex items-center justify-center">
                 <TrendingDown className="w-6 h-6 text-destructive" />
               </div>
-              <h3 className="text-2xl font-bold text-destructive">
+              <h3 className="text-xl md:text-2xl font-bold text-destructive">
                 بلا Mojib ❌
               </h3>
             </div>
@@ -62,7 +62,7 @@ const LossSection = () => {
               </li>
             </ul>
             <div className="mt-6 p-4 rounded-xl bg-destructive/10 text-center">
-              <p className="text-2xl font-bold text-destructive">
+              <p className="text-xl md:text-2xl font-bold text-destructive">
                 -20,000 MAD/شهر
               </p>
               <p className="text-muted-foreground text-sm">مداخيل ضايعة</p>
@@ -71,7 +71,7 @@ const LossSection = () => {
 
           {/* With Mojib */}
           <motion.div
-            className="glass-card p-8"
+            className="glass-card p-6 md:p-8"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -82,7 +82,7 @@ const LossSection = () => {
               <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold text-secondary">
+              <h3 className="text-xl md:text-2xl font-bold text-secondary">
                 مع Mojib.AI ✅
               </h3>
             </div>
@@ -107,7 +107,7 @@ const LossSection = () => {
               </li>
             </ul>
             <div className="mt-6 p-4 rounded-xl bg-secondary/10 text-center">
-              <p className="text-2xl font-bold text-secondary">+35% مداخيل</p>
+              <p className="text-xl md:text-2xl font-bold text-secondary">+35% مداخيل</p>
               <p className="text-muted-foreground text-sm">
                 + 15 ساعة مربوحة كل سيمانة
               </p>

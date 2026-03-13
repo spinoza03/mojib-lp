@@ -3,7 +3,7 @@ import { CheckCircle2, XCircle, TrendingUp } from "lucide-react";
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-20 px-4 relative" dir="rtl">
+    <section id="pricing" className="py-12 md:py-20 px-4 relative" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
 
       <div className="container max-w-4xl mx-auto relative z-10">
@@ -28,12 +28,12 @@ const PricingSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="glass-card p-8 border-red-500/20 relative overflow-hidden"
+            className="glass-card p-6 md:p-8 border-red-500/20 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 blur-[50px] -z-10" />
-            <h3 className="text-2xl font-bold mb-6 text-foreground/80 flex items-center gap-2">
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-foreground/80 flex items-center gap-2">
               <span className="p-2 bg-red-500/10 rounded-lg text-red-500">
-                <XCircle size={24} />
+                <XCircle size={20} className="md:w-6 md:h-6" />
               </span>
               سيكريتير عادية
             </h3>
@@ -58,16 +58,16 @@ const PricingSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="glass-card p-8 border-primary/40 relative overflow-hidden transform md:-translate-y-4 shadow-[0_0_40px_rgba(var(--primary),0.15)] ring-1 ring-primary/20"
+            className="glass-card p-6 md:p-8 border-primary/40 relative overflow-hidden transform md:-translate-y-4 shadow-[0_0_40px_rgba(var(--primary),0.15)] ring-1 ring-primary/20"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-[50px] -z-10" />
             <div className="absolute -right-12 top-6 bg-primary text-primary-foreground text-sm font-bold py-1 px-12 rotate-45 shadow-lg">
               الأفضل بزااف
             </div>
             
-            <h3 className="text-2xl font-bold mb-2 text-foreground flex items-center gap-2">
+            <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground flex items-center gap-2">
               <span className="p-2 bg-primary/20 rounded-lg text-primary">
-                <CheckCircle2 size={24} />
+                <CheckCircle2 size={20} className="md:w-6 md:h-6" />
               </span>
               Mojib.AI
             </h3>

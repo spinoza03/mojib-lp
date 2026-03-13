@@ -24,7 +24,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="py-20 px-4" dir="rtl">
+    <section className="py-12 md:py-20 px-4" dir="rtl">
       <div className="container max-w-6xl mx-auto">
         <motion.h2
           className="section-title mb-12"
@@ -44,19 +44,19 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="glass-card p-8 text-center group hover:scale-[1.02] transition-transform duration-300"
+              className="glass-card p-6 md:p-8 text-center group hover:scale-[1.02] transition-transform duration-300 overflow-visible"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
             >
-              <div className="w-16 h-16 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/25 transition-colors">
-                <feature.icon className="w-8 h-8 text-primary" />
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:bg-primary/25 transition-colors">
+                <feature.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">
+              <h3 className="text-lg md:text-xl font-bold text-foreground mb-2 md:mb-3">
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

@@ -55,7 +55,7 @@ const LeadFormSection = () => {
   };
 
   return (
-    <section id="lead-form" className="py-20 px-4 relative" dir="rtl">
+    <section id="lead-form" className="py-12 md:py-20 px-4 relative" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/8 blur-[150px]" />
 
       <div className="container max-w-2xl mx-auto relative z-10">
@@ -78,7 +78,7 @@ const LeadFormSection = () => {
         </motion.p>
 
         <motion.form
-          className="glass-card p-8 space-y-5"
+          className="glass-card p-6 md:p-8 space-y-4 md:space-y-5"
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
