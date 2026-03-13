@@ -6,19 +6,21 @@ const steps = [
     icon: MessageSquare,
     step: "1",
     title: "المريض كيصيفط ميساج",
-    description: '"بغيت موعد ديرسا"',
+    description: '"بغيت نحجز موعد عند الدكتور"',
   },
   {
     icon: Bot,
     step: "2",
-    title: "Mojib كيجاوب فالبلاصة",
-    description: "كيآخد السمية، كيشرح الخدمات، وكيقترح المواعيد الخاوية.",
+    title: "Mojib كيجاوب فالحين",
+    description:
+      "كيآخد السمية، كيشرح الخدمات المتاحة، وكيقترح الأوقات الخاوية.",
   },
   {
     icon: CalendarCheck2,
     step: "3",
-    title: "الموعد كيتقيد",
-    description: "نتا كتوصلك Notification فـ Dashboard ديالك، وكولشي منظم.",
+    title: "الموعد كيتسجل أوتوماتيك",
+    description:
+      "كتوصلك إشعار فالداشبورد ديالك، وكولشي منظم بلا ما تحرك صبعك.",
   },
 ];
 
@@ -53,7 +55,9 @@ const HowItWorksSection = () => {
               <div className="w-14 h-14 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-5">
                 <item.icon className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+              <h3 className="text-xl font-bold text-foreground mb-3">
+                {item.title}
+              </h3>
               <p className="text-muted-foreground">{item.description}</p>
             </motion.div>
           ))}

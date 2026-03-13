@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
 
 const LeadFormSection = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +10,44 @@ const LeadFormSection = () => {
     messagesPerDay: "",
     whatsapp: "",
   });
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `طلب تجربة مجانية:\nسمية العيادة: ${formData.clinicName}\nالمدينة: ${formData.city}\nعدد الميساجات/يوم: ${formData.messagesPerDay}\nواتساب: ${formData.whatsapp}`;
-    window.open(`https://wa.me/447749343372?text=${encodeURIComponent(message)}`, "_blank");
+    setLoading(true);
+
+    const { error } = await supabase.from("leads").insert({
+      clinic_name: formData.clinicName,
+      city: formData.city,
+      messages_per_day: formData.messagesPerDay,
+      whatsapp: formData.whatsapp,
+    });
+
+    if (error) {
+      toast({
+        title: "وقعات مشكلة ❌",
+        description: "ما قدرناش نسجلو الطلب ديالك. عاود حاول.",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    toast({
+      title: "تسجل بنجاح! ✅",
+      description: "غادي نتواصلو معاك قريباً إن شاء الله.",
+    });
+
+    // Also send via WhatsApp
+    const message = `🏥 طلب تجربة مجانية:\n📋 العيادة: ${formData.clinicName}\n📍 المدينة: ${formData.city}\n💬 ميساجات/يوم: ${formData.messagesPerDay}\n📱 واتساب: ${formData.whatsapp}`;
+    window.open(
+      `https://wa.me/447749343372?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+
+    setFormData({ clinicName: "", city: "", messagesPerDay: "", whatsapp: "" });
+    setLoading(false);
   };
 
   return (
@@ -26,7 +61,7 @@ const LeadFormSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          واش مستعد ترد عيادتك Smart Clinic؟ 🏥
+          مستاعد تحوّل عيادتك لـ Smart Clinic؟ 🏥
         </motion.h2>
         <motion.p
           className="text-center text-muted-foreground mb-10 text-lg"
@@ -35,7 +70,7 @@ const LeadFormSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          وتزيد فالمداخيل ديالك؟
+          عمّر هاد الفورم وغادي نتواصلو معاك فأقرب وقت
         </motion.p>
 
         <motion.form
@@ -47,51 +82,78 @@ const LeadFormSection = () => {
           transition={{ delay: 0.3 }}
         >
           <div>
-            <label className="block text-foreground/80 mb-2 text-sm font-medium">سمية العيادة / المركز</label>
+            <label className="block text-foreground/80 mb-2 text-sm font-medium">
+              سمية العيادة ولا المركز
+            </label>
             <input
               type="text"
               className="glass-input"
-              placeholder="مثلا: عيادة الأمل"
+              placeholder="مثلاً: عيادة الأمل"
               value={formData.clinicName}
-              onChange={(e) => setFormData({ ...formData, clinicName: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, clinicName: e.target.value })
+              }
               required
             />
           </div>
           <div>
-            <label className="block text-foreground/80 mb-2 text-sm font-medium">المدينة</label>
+            <label className="block text-foreground/80 mb-2 text-sm font-medium">
+              المدينة
+            </label>
             <input
               type="text"
               className="glass-input"
-              placeholder="مثلا: الدار البيضاء"
+              placeholder="مثلاً: كازا، الرباط..."
               value={formData.city}
-              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, city: e.target.value })
+              }
               required
             />
           </div>
           <div>
-            <label className="block text-foreground/80 mb-2 text-sm font-medium">شحال من ميساج كيوصلك فاليوم تقريباً؟</label>
+            <label className="block text-foreground/80 mb-2 text-sm font-medium">
+              شحال من ميساج كيوصلك فاليوم تقريباً؟
+            </label>
             <input
               type="text"
               className="glass-input"
-              placeholder="مثلا: 15"
+              placeholder="مثلاً: 15"
               value={formData.messagesPerDay}
-              onChange={(e) => setFormData({ ...formData, messagesPerDay: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, messagesPerDay: e.target.value })
+              }
               required
             />
           </div>
           <div>
-            <label className="block text-foreground/80 mb-2 text-sm font-medium">رقم الواتساب للتواصل</label>
+            <label className="block text-foreground/80 mb-2 text-sm font-medium">
+              رقم الواتساب ديالك
+            </label>
             <input
               type="tel"
               className="glass-input"
               placeholder="+212 6XX XXX XXX"
               value={formData.whatsapp}
-              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, whatsapp: e.target.value })
+              }
               required
             />
           </div>
-          <button type="submit" className="btn-primary w-full text-center">
-            فعل حسابي التجريبي دابا 🚀
+          <button
+            type="submit"
+            className="btn-primary w-full text-center disabled:opacity-60 disabled:cursor-not-allowed"
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                كنسجلو...
+              </span>
+            ) : (
+              "نبدا التجربة المجانية دابا 🚀"
+            )}
           </button>
         </motion.form>
       </div>

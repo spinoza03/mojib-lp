@@ -4,18 +4,21 @@ import { MessageCircle, CalendarCheck, ShieldCheck } from "lucide-react";
 const features = [
   {
     icon: MessageCircle,
-    title: "بنت البلاد فـ WhatsApp",
-    description: "المساعد ديالنا كيفهم وكيهضر بالدارجة المغربية بطلاقة، باش المريض يحس بلي كيهضر مع إنسان حقيقي ومهني.",
+    title: "كيهضر بالدارجة فـ WhatsApp",
+    description:
+      "المساعد ديالنا كيفهم الدارجة المغربية وكيجاوب بطلاقة، المريض كيحس بلي كيهضر مع شي حد حقيقي ومهني.",
   },
   {
     icon: CalendarCheck,
-    title: "سد البيبان وخلي الخدمة خدامة",
-    description: "سوا فليل، نهار الأحد، ولا فالعطلة.. المواعيد كيتسجلو أوتوماتيكياً فـ Calendar ديالك بلا ما تفيق من النعاس.",
+    title: "المواعيد كتسجل بوحدها",
+    description:
+      "سوا فالليل، نهار الأحد، ولا فالعطلة — المواعيد كيتسجلو أوتوماتيك فالكالوندري ديالك بلا ما تحرك صبعك.",
   },
   {
     icon: ShieldCheck,
-    title: "تصفية السبام",
-    description: "غادي يوصلوك غير الناس لي مهتمين بصح وباغين يحجزو، هكا ما تضيعش وقتك مع كثرة الكليكات الخاوية.",
+    title: "تصفية السبام أوتوماتيك",
+    description:
+      "كيوصلوك غير الناس لي بصح باغين يحجزو، ما تضيعش وقتك مع الميساجات الخاوية.",
   },
 ];
 
@@ -29,7 +32,7 @@ const FeaturesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          المميزات 🔥
+          علاش Mojib.AI؟ 🔥
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -45,8 +48,12 @@ const FeaturesSection = () => {
               <div className="w-16 h-16 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/25 transition-colors">
                 <feature.icon className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+              <h3 className="text-xl font-bold text-foreground mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
         </div>
