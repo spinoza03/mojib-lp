@@ -55,7 +55,7 @@ const LeadFormSection = () => {
   };
 
   return (
-    <section id="lead-form" className="py-12 md:py-20 px-4 relative" dir="rtl">
+    <section id="lead-form" className="py-8 md:py-12 px-4 relative" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/8 blur-[150px]" />
 
       <div className="container max-w-2xl mx-auto relative z-10">

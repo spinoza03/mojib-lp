@@ -26,7 +26,7 @@ const steps = [
 
 const HowItWorksSection = () => {
   return (
-    <section className="py-12 md:py-20 px-4 relative" dir="rtl">
+    <section className="py-8 md:py-12 px-4 relative" dir="rtl">
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-secondary/5 blur-[150px]" />
 
       <div className="container max-w-6xl mx-auto relative z-10">

@@ -4,7 +4,7 @@ import mojibLogo from "@/assets/mojib-logo.png";
 const HeroSection = () => {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center px-4 pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 pt-10 pb-8 md:pt-12 md:pb-10 overflow-hidden"
       dir="rtl"
     >
       {/* Floating orbs */}
