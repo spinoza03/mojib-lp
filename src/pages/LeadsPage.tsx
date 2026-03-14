@@ -15,6 +15,7 @@ import {
   Phone,
   StickyNote,
   Filter,
+  MessageCircle,
 } from "lucide-react";
 
 const STATUS_CONFIG: Record<
@@ -156,9 +157,10 @@ const LeadsPage = () => {
   const filteredLeads = leads.filter((lead) => {
     const matchesSearch =
       !searchQuery ||
-      lead.clinic_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      lead.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      lead.whatsapp.includes(searchQuery);
+      lead.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.clinic_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.city?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.whatsapp?.includes(searchQuery);
     const matchesStatus =
       statusFilter === "all" || lead.status === statusFilter;
     return matchesSearch && matchesStatus;
@@ -310,6 +312,9 @@ const LeadsPage = () => {
                 <thead>
                   <tr className="border-b border-border/30">
                     <th className="text-right px-6 py-4 text-sm font-semibold text-muted-foreground">
+                      السمية والكنية
+                    </th>
+                    <th className="text-right px-6 py-4 text-sm font-semibold text-muted-foreground">
                       العيادة
                     </th>
                     <th className="text-right px-6 py-4 text-sm font-semibold text-muted-foreground">
@@ -345,6 +350,9 @@ const LeadsPage = () => {
                         layout
                       >
                         <td className="px-6 py-4 font-medium text-foreground">
+                          {lead.name}
+                        </td>
+                        <td className="px-6 py-4 text-foreground/80">
                           {lead.clinic_name}
                         </td>
                         <td className="px-6 py-4 text-foreground/80">
@@ -447,10 +455,20 @@ const LeadsPage = () => {
                             </button>
                           )}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 flex items-center justify-end gap-2">
+                          <a
+                            href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="تواصل في واتساب"
+                            className="text-emerald-500 hover:text-emerald-400 transition-colors p-2 rounded-lg hover:bg-emerald-500/10"
+                          >
+                            <MessageCircle className="w-4 h-4" />
+                          </a>
                           <button
                             onClick={() => deleteLead(lead.id)}
                             className="text-muted-foreground hover:text-destructive transition-colors p-2 rounded-lg hover:bg-destructive/10"
+                            title="مسح"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -477,18 +495,31 @@ const LeadsPage = () => {
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-bold text-foreground text-lg">
-                          {lead.clinic_name}
+                          {lead.name}
                         </h3>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-muted-foreground text-sm font-medium">
+                          {lead.clinic_name}
+                        </p>
+                        <p className="text-muted-foreground/80 text-xs">
                           {lead.city}
                         </p>
                       </div>
-                      <button
-                        onClick={() => deleteLead(lead.id)}
-                        className="text-muted-foreground hover:text-destructive transition-colors p-1.5"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <a
+                          href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-emerald-500 hover:text-emerald-400 transition-colors p-1.5 rounded-lg hover:bg-emerald-500/10"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                        </a>
+                        <button
+                          onClick={() => deleteLead(lead.id)}
+                          className="text-muted-foreground hover:text-destructive transition-colors p-1.5 rounded-lg hover:bg-destructive/10"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-4 text-sm">

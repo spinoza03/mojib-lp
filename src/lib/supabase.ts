@@ -7,6 +7,7 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export type Lead = {
   id: string;
+  name: string;
   clinic_name: string;
   city: string;
   messages_per_day: string | null;
