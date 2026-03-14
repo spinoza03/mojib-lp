@@ -3,7 +3,7 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 
 const LossSection = () => {
   return (
-    <section className="py-8 md:py-12 px-4 relative" dir="rtl">
+    <section className="py-6 md:py-12 px-4 relative" dir="rtl">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/5 blur-[150px]" />
 
       <div className="container max-w-6xl mx-auto z-10 relative">

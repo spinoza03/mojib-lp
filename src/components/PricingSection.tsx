@@ -3,7 +3,7 @@ import { CheckCircle2, XCircle, TrendingUp } from "lucide-react";
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-8 md:py-12 px-4 relative" dir="rtl">
+    <section id="pricing" className="py-6 md:py-12 px-4 relative" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
 
       <div className="container max-w-4xl mx-auto relative z-10">

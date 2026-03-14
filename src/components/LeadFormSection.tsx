@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const LeadFormSection = () => {
   const [formData, setFormData] = useState({
+    name: "",
     clinicName: "",
     city: "",
     messagesPerDay: "",
@@ -18,6 +19,7 @@ const LeadFormSection = () => {
     setLoading(true);
 
     const { error } = await supabase.from("leads").insert({
+      name: formData.name,
       clinic_name: formData.clinicName,
       city: formData.city,
       messages_per_day: formData.messagesPerDay,
@@ -44,18 +46,18 @@ const LeadFormSection = () => {
     }
 
     // Also send via WhatsApp
-    const message = `🏥 طلب تجربة مجانية:\n📋 العيادة: ${formData.clinicName}\n📍 المدينة: ${formData.city}\n💬 ميساجات/يوم: ${formData.messagesPerDay}\n📱 واتساب: ${formData.whatsapp}`;
+    const message = `🏥 طلب تجربة مجانية:\n👤 السمية: ${formData.name}\n📋 العيادة: ${formData.clinicName}\n📍 المدينة: ${formData.city}\n💬 ميساجات/يوم: ${formData.messagesPerDay}\n📱 واتساب: ${formData.whatsapp}`;
     window.open(
       `https://wa.me/447749343372?text=${encodeURIComponent(message)}`,
       "_blank"
     );
 
-    setFormData({ clinicName: "", city: "", messagesPerDay: "", whatsapp: "" });
+    setFormData({ name: "", clinicName: "", city: "", messagesPerDay: "", whatsapp: "" });
     setLoading(false);
   };
 
   return (
-    <section id="lead-form" className="py-8 md:py-12 px-4 relative" dir="rtl">
+    <section id="lead-form" className="py-6 md:py-12 px-4 relative" dir="rtl">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-primary/8 blur-[150px]" />
 
       <div className="container max-w-2xl mx-auto relative z-10">
@@ -85,6 +87,21 @@ const LeadFormSection = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
+          <div>
+            <label className="block text-foreground/80 mb-2 text-sm font-medium">
+              السمية والكنية
+            </label>
+            <input
+              type="text"
+              className="glass-input"
+              placeholder="مثلاً: دكتور محمد"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
+          </div>
           <div>
             <label className="block text-foreground/80 mb-2 text-sm font-medium">
               سمية العيادة ولا المركز

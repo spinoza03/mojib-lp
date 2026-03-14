@@ -24,7 +24,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="py-8 md:py-12 px-4" dir="rtl">
+    <section className="py-6 md:py-12 px-4" dir="rtl">
       <div className="container max-w-6xl mx-auto">
         <motion.h2
           className="section-title mb-12"
