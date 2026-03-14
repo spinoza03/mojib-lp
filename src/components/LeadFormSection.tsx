@@ -18,6 +18,22 @@ const LeadFormSection = () => {
     e.preventDefault();
     setLoading(true);
 
+    // Validate Phone Number
+    let cleanPhone = formData.whatsapp.replace(/[^0-9]/g, "");
+    if (cleanPhone.startsWith("212")) {
+      cleanPhone = "0" + cleanPhone.substring(3);
+    }
+    
+    if (cleanPhone.length !== 10 || !cleanPhone.startsWith("0")) {
+      toast({
+        title: "رقم الواتساب غالط ❌",
+        description: "عافاك تأكد من الرقم. خصو يكون فيه 10 الأرقام (مثال: 06XXXXXXXX ولا +2126XXXXXXXX)",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.from("leads").insert({
       name: formData.name,
       clinic_name: formData.clinicName,
@@ -90,6 +106,7 @@ const LeadFormSection = () => {
           <div>
             <label className="block text-foreground/80 mb-2 text-sm font-medium">
               السمية والكنية
+              <span className="text-destructive mr-1">*</span>
             </label>
             <input
               type="text"
@@ -150,10 +167,12 @@ const LeadFormSection = () => {
           <div>
             <label className="block text-foreground/80 mb-2 text-sm font-medium">
               رقم الواتساب ديالك
+              <span className="text-destructive mr-1">*</span>
             </label>
             <input
               type="tel"
-              className="glass-input"
+              className="glass-input ltr-input"
+              dir="ltr"
               placeholder="+212 6XX XXX XXX"
               value={formData.whatsapp}
               onChange={(e) =>

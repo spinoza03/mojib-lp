@@ -22,8 +22,8 @@ const Index = () => {
       {/* Sticky Button */}
       <a
         href="#lead-form"
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[100] btn-primary shadow-2xl! shadow-primary/50 text-sm md:text-base border border-white/10 flex items-center gap-2"
-        style={{ borderRadius: "9999px" }}
+        className="fixed bottom-8 right-4 md:bottom-6 md:right-6 btn-primary border border-white/20 flex items-center gap-2 !shadow-2xl shadow-primary/50 text-sm md:text-base"
+        style={{ borderRadius: "9999px", zIndex: 99999 }}
       >
         <span>عمر الفورم دابا</span>
         <span>🚀</span>
