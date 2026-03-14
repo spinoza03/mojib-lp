@@ -62,6 +62,19 @@ const ALL_STATUSES: Lead["status"][] = [
   "lost",
 ];
 
+const formatWhatsAppNumber = (phone: string) => {
+  let clean = phone.replace(/[^0-9]/g, "");
+  // If it starts with 0 (like 06...), remove it and add 212
+  if (clean.startsWith("0")) {
+    clean = "212" + clean.slice(1);
+  } 
+  // If it doesn't start with 212 already, append it
+  else if (!clean.startsWith("212")) {
+    clean = "212" + clean;
+  }
+  return `+${clean}`;
+};
+
 const LeadsPage = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
@@ -360,7 +373,7 @@ const LeadsPage = () => {
                         </td>
                         <td className="px-6 py-4">
                           <a
-                            href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                            href={`https://wa.me/${formatWhatsAppNumber(lead.whatsapp)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-secondary hover:underline"
@@ -457,7 +470,7 @@ const LeadsPage = () => {
                         </td>
                         <td className="px-6 py-4 flex items-center justify-end gap-2">
                           <a
-                            href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                            href={`https://wa.me/${formatWhatsAppNumber(lead.whatsapp)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="تواصل في واتساب"
@@ -506,7 +519,7 @@ const LeadsPage = () => {
                       </div>
                       <div className="flex items-center gap-1">
                         <a
-                          href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                          href={`https://wa.me/${formatWhatsAppNumber(lead.whatsapp)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-emerald-500 hover:text-emerald-400 transition-colors p-1.5 rounded-lg hover:bg-emerald-500/10"
@@ -524,7 +537,7 @@ const LeadsPage = () => {
 
                     <div className="flex items-center gap-4 text-sm">
                       <a
-                        href={`https://wa.me/${lead.whatsapp.replace(/[^0-9]/g, "")}`}
+                        href={`https://wa.me/${formatWhatsAppNumber(lead.whatsapp)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-secondary hover:underline"
