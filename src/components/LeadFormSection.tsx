@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Shield, Clock, Users } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const niches = [
   "Clinique / Cabinet Médical",
@@ -20,6 +21,7 @@ const trustPoints = [
 
 const LeadFormSection = () => {
   const [formData, setFormData] = useState({
+    name: "",
     businessName: "",
     niche: "",
     city: "",
@@ -27,9 +29,12 @@ const LeadFormSection = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
+    if (formData.name.trim().length < 2)
+      newErrors.name = "Veuillez entrer votre prénom et nom";
     if (formData.businessName.trim().length < 2)
       newErrors.businessName = "Veuillez entrer le nom de votre entreprise";
     if (!formData.niche) newErrors.niche = "Veuillez choisir votre secteur";
@@ -40,22 +45,37 @@ const LeadFormSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
-    const message =
-      `Bonjour, je souhaite démarrer avec Mojib !\n\n` +
-      `🏢 Business : ${formData.businessName}\n` +
-      `📍 Secteur : ${formData.niche}\n` +
-      `🌆 Ville : ${formData.city}\n` +
-      `📱 WhatsApp : ${formData.whatsapp}`;
+    setSubmitting(true);
 
+    // Save to Supabase
+    await supabase.from("leads").insert({
+      name: formData.name.trim(),
+      clinic_name: formData.businessName.trim(),
+      industry: formData.niche,
+      city: formData.city.trim(),
+      whatsapp: formData.whatsapp.trim(),
+      status: "new",
+    });
+
+    // Meta Pixel Lead event
     window.fbq?.("track", "Lead", {
       content_name: "Mojib Free Trial",
       content_category: formData.niche,
     });
 
+    const message =
+      `Bonjour, je souhaite démarrer avec Mojib !\n\n` +
+      `👤 Nom : ${formData.name}\n` +
+      `🏢 Business : ${formData.businessName}\n` +
+      `📍 Secteur : ${formData.niche}\n` +
+      `🌆 Ville : ${formData.city}\n` +
+      `📱 WhatsApp : ${formData.whatsapp}`;
+
+    setSubmitting(false);
     setSubmitted(true);
     setTimeout(() => {
       window.open(
@@ -176,7 +196,23 @@ const LeadFormSection = () => {
               className="lg:col-span-3 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-100"
             >
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                {/* Name + Business — row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                      Votre nom complet <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="Ex: Mohamed Benali"
+                      value={formData.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                    )}
+                  </div>
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                       Nom de votre entreprise <span className="text-red-500">*</span>
@@ -192,6 +228,10 @@ const LeadFormSection = () => {
                       <p className="text-red-500 text-xs mt-1">{errors.businessName}</p>
                     )}
                   </div>
+                </div>
+
+                {/* Niche + City — row 2 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                       Votre secteur <span className="text-red-500">*</span>
@@ -203,18 +243,13 @@ const LeadFormSection = () => {
                     >
                       <option value="">Choisissez votre secteur</option>
                       {niches.map((n) => (
-                        <option key={n} value={n}>
-                          {n}
-                        </option>
+                        <option key={n} value={n}>{n}</option>
                       ))}
                     </select>
                     {errors.niche && (
                       <p className="text-red-500 text-xs mt-1">{errors.niche}</p>
                     )}
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
                       Ville <span className="text-red-500">*</span>
@@ -230,26 +265,32 @@ const LeadFormSection = () => {
                       <p className="text-red-500 text-xs mt-1">{errors.city}</p>
                     )}
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Votre WhatsApp <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      className="form-input"
-                      placeholder="+212 6XX XXX XXX"
-                      value={formData.whatsapp}
-                      onChange={(e) => handleChange("whatsapp", e.target.value)}
-                    />
-                    {errors.whatsapp && (
-                      <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>
-                    )}
-                  </div>
                 </div>
 
-                <button type="submit" className="btn-urgent w-full py-4 text-base">
-                  Démarrer mon Essai Gratuit
-                  <ArrowRight size={18} />
+                {/* WhatsApp — row 3, full width */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                    Votre WhatsApp <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-input"
+                    placeholder="+212 6XX XXX XXX"
+                    value={formData.whatsapp}
+                    onChange={(e) => handleChange("whatsapp", e.target.value)}
+                  />
+                  {errors.whatsapp && (
+                    <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn-urgent w-full py-4 text-base"
+                  disabled={submitting}
+                >
+                  {submitting ? "Envoi en cours…" : "Démarrer mon Essai Gratuit"}
+                  {!submitting && <ArrowRight size={18} />}
                 </button>
 
                 <p className="text-center text-xs text-slate-400">
