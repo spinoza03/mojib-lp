@@ -51,15 +51,19 @@ const LeadFormSection = () => {
 
     setSubmitting(true);
 
-    // Save to Supabase
-    await supabase.from("leads").insert({
-      name: formData.name.trim(),
-      clinic_name: formData.businessName.trim(),
-      industry: formData.niche,
-      city: formData.city.trim(),
-      whatsapp: formData.whatsapp.trim(),
-      status: "new",
-    });
+    // Save to Supabase (non-blocking)
+    try {
+      await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        clinic_name: formData.businessName.trim(),
+        industry: formData.niche,
+        city: formData.city.trim(),
+        whatsapp: formData.whatsapp.trim(),
+        status: "new",
+      });
+    } catch (error) {
+      console.error("Failed to save lead:", error);
+    }
 
     // Meta Pixel Lead event
     window.fbq?.("track", "Lead", {
