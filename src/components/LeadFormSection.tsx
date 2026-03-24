@@ -30,6 +30,7 @@ const LeadFormSection = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dbError, setDbError] = useState("");
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -50,10 +51,11 @@ const LeadFormSection = () => {
     if (!validate()) return;
 
     setSubmitting(true);
+    setDbError("");
 
-    // Save to Supabase (non-blocking)
+    // Save to Supabase
     try {
-      await supabase.from("leads").insert({
+      const { error } = await supabase.from("leads").insert({
         name: formData.name.trim(),
         clinic_name: formData.businessName.trim(),
         industry: formData.niche,
@@ -61,8 +63,18 @@ const LeadFormSection = () => {
         whatsapp: formData.whatsapp.trim(),
         status: "new",
       });
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        setDbError(`Erreur DB: ${error.message}`);
+        setSubmitting(false);
+        return;
+      }
     } catch (error) {
       console.error("Failed to save lead:", error);
+      setDbError("Impossible de sauvegarder le lead");
+      setSubmitting(false);
+      return;
     }
 
     // Meta Pixel Lead event
@@ -200,6 +212,15 @@ const LeadFormSection = () => {
               className="lg:col-span-3 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-100"
             >
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                {dbError && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-700">{dbError}</p>
+                    <p className="text-xs text-red-600 mt-1">
+                      Contactez l'équipe si le problème persiste: +44 774 934 3372
+                    </p>
+                  </div>
+                )}
+
                 {/* Name + Business — row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
