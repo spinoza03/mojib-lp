@@ -51,6 +51,11 @@ const LeadFormSection = () => {
       `🌆 Ville : ${formData.city}\n` +
       `📱 WhatsApp : ${formData.whatsapp}`;
 
+    window.fbq?.("track", "Lead", {
+      content_name: "Mojib Free Trial",
+      content_category: formData.niche,
+    });
+
     setSubmitted(true);
     setTimeout(() => {
       window.open(
