@@ -55,7 +55,14 @@ const LeadFormSection = () => {
 
     // Save to Supabase
     try {
-      const { error } = await supabase.from("leads").insert({
+      console.log("📤 Tentative de sauvegarde du lead...", {
+        name: formData.name,
+        clinic_name: formData.businessName,
+        industry: formData.niche,
+        city: formData.city,
+      });
+
+      const { data, error } = await supabase.from("leads").insert({
         name: formData.name.trim(),
         clinic_name: formData.businessName.trim(),
         industry: formData.niche,
@@ -65,14 +72,24 @@ const LeadFormSection = () => {
       });
 
       if (error) {
-        console.error("Supabase insert error:", error);
-        setDbError(`Erreur DB: ${error.message}`);
+        console.error("❌ Erreur Supabase:", error);
+        const errorMsg =
+          error.code === "PGRST116"
+            ? "RLS bloque l'insert. Désactiver RLS sur la table 'leads' dans Supabase."
+            : error.code === "42P01"
+            ? "Table 'leads' n'existe pas. Créer la table dans Supabase."
+            : `${error.code}: ${error.message}`;
+        setDbError(`Erreur: ${errorMsg}`);
         setSubmitting(false);
         return;
       }
-    } catch (error) {
-      console.error("Failed to save lead:", error);
-      setDbError("Impossible de sauvegarder le lead");
+
+      console.log("✅ Lead sauvegardé avec succès:", data);
+    } catch (error: any) {
+      console.error("❌ Erreur réseau/fetch:", error);
+      setDbError(
+        `Erreur réseau: ${error?.message || "Impossible de contacter Supabase"}. Vérifiez les env vars et la connexion Internet.`
+      );
       setSubmitting(false);
       return;
     }
