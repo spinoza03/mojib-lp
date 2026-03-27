@@ -101,14 +101,19 @@ const PlanCard = ({ plan, index }: { plan: Plan; index: number }) => (
     <div className="mb-6">
       <h3 className="text-xl font-extrabold text-slate-900 mb-1">{plan.name}</h3>
       <p className="text-sm text-slate-500 leading-relaxed mb-5">{plan.tagline}</p>
+      {/* Promo price — first 2 months */}
+      <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 text-[11px] font-bold px-2.5 py-1 rounded-full mb-2">
+        <span>🔥</span>
+        <span>-50% les 2 premiers mois</span>
+      </div>
       <div className="flex items-baseline gap-1">
-        <span className="text-5xl font-black text-slate-900">{plan.price}</span>
+        <span className="text-5xl font-black" style={{ color: plan.accentColor }}>{Math.round(Number(plan.price) / 2)}</span>
         <span className="text-slate-400 text-sm font-medium">DH / mois</span>
       </div>
-      <div className="mt-2 inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold px-3 py-1.5 rounded-full">
-        <span>🔥</span>
-        <span>-50% les 2 premiers mois → {Math.round(Number(plan.price) / 2)} DH/mois</span>
-      </div>
+      {/* Original price — from month 3 */}
+      <p className="text-sm text-slate-400 mt-1">
+        puis <span className="font-semibold text-slate-500">{plan.price} DH/mois</span> à partir du 3ᵉ mois
+      </p>
     </div>
 
     {/* CTA */}
