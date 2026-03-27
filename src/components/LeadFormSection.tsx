@@ -143,20 +143,20 @@ const LeadFormSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-          {/* Left: Trust sidebar */}
+          {/* Left: "Ce que vous obtenez" + Form stacked */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-3 space-y-6"
           >
             {/* What you get */}
             <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
               <h3 className="font-bold text-slate-900 mb-4 text-xs uppercase tracking-widest text-[#2589D0]">
                 Ce que vous obtenez
               </h3>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   "Agent IA WhatsApp opérationnel en 30 min",
                   "Configuration personnalisée à votre secteur",
@@ -172,6 +172,149 @@ const LeadFormSection = () => {
               </ul>
             </div>
 
+            {/* Form or success */}
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-white rounded-3xl p-12 text-center shadow-sm border border-slate-100"
+              >
+                <CheckCircle size={56} className="mx-auto mb-4" style={{ color: "#2589D0" }} />
+                <h3 className="text-2xl font-extrabold text-slate-900 mb-2">C'est parti !</h3>
+                <p className="text-slate-500 leading-relaxed">
+                  Ouverture de WhatsApp en cours…<br />
+                  Notre équipe vous répondra dans les <strong>2 heures</strong>.
+                </p>
+              </motion.div>
+            ) : (
+              <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-100">
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  {dbError && (
+                    <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded">
+                      <p className="text-sm font-semibold text-red-700">Erreur de sauvegarde</p>
+                      <p className="text-xs text-red-600 mt-2 font-mono">{dbError}</p>
+                      <p className="text-xs text-red-600 mt-3">
+                        📋 <strong>Solution:</strong> Voir le fichier SUPABASE_SETUP.md pour configurer RLS
+                      </p>
+                      <p className="text-xs text-red-500 mt-2">
+                        ou contactez: +44 774 934 3372
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Name + Business — row 1 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Votre nom complet <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Ex: Mohamed Benali"
+                        value={formData.name}
+                        onChange={(e) => handleChange("name", e.target.value)}
+                      />
+                      {errors.name && (
+                        <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Nom de votre entreprise <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Ex: Cabinet Dentaire Al Amal"
+                        value={formData.businessName}
+                        onChange={(e) => handleChange("businessName", e.target.value)}
+                      />
+                      {errors.businessName && (
+                        <p className="text-red-500 text-xs mt-1">{errors.businessName}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Niche + City — row 2 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Votre secteur <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        className="form-input"
+                        value={formData.niche}
+                        onChange={(e) => handleChange("niche", e.target.value)}
+                      >
+                        <option value="">Choisissez votre secteur</option>
+                        {niches.map((n) => (
+                          <option key={n} value={n}>{n}</option>
+                        ))}
+                      </select>
+                      {errors.niche && (
+                        <p className="text-red-500 text-xs mt-1">{errors.niche}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Ville <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Ex: Casablanca"
+                        value={formData.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
+                      />
+                      {errors.city && (
+                        <p className="text-red-500 text-xs mt-1">{errors.city}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* WhatsApp — row 3, full width */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                      Votre WhatsApp <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      className="form-input"
+                      placeholder="+212 6XX XXX XXX"
+                      value={formData.whatsapp}
+                      onChange={(e) => handleChange("whatsapp", e.target.value)}
+                    />
+                    {errors.whatsapp && (
+                      <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-urgent w-full py-4 text-base"
+                    disabled={submitting}
+                  >
+                    {submitting ? "Envoi en cours…" : "Démarrer mon Essai Gratuit"}
+                    {!submitting && <ArrowRight size={18} />}
+                  </button>
+
+                  <p className="text-center text-xs text-slate-400">
+                    🔒 Données sécurisées · Sans engagement · Sans carte bancaire
+                  </p>
+                </form>
+              </div>
+            )}
+          </motion.div>
+
+          {/* Right: Trust sidebar */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-2 space-y-6"
+          >
             {/* Trust points */}
             <div className="space-y-3">
               {trustPoints.map(({ icon: Icon, text }) => (
@@ -204,146 +347,6 @@ const LeadFormSection = () => {
               </div>
             </div>
           </motion.div>
-
-          {/* Right: Form or success */}
-          {submitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="lg:col-span-3 bg-white rounded-3xl p-12 text-center shadow-sm border border-slate-100"
-            >
-              <CheckCircle size={56} className="mx-auto mb-4" style={{ color: "#2589D0" }} />
-              <h3 className="text-2xl font-extrabold text-slate-900 mb-2">C'est parti !</h3>
-              <p className="text-slate-500 leading-relaxed">
-                Ouverture de WhatsApp en cours…<br />
-                Notre équipe vous répondra dans les <strong>2 heures</strong>.
-              </p>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-              className="lg:col-span-3 bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-100"
-            >
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                {dbError && (
-                  <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded">
-                    <p className="text-sm font-semibold text-red-700">Erreur de sauvegarde</p>
-                    <p className="text-xs text-red-600 mt-2 font-mono">{dbError}</p>
-                    <p className="text-xs text-red-600 mt-3">
-                      📋 <strong>Solution:</strong> Voir le fichier SUPABASE_SETUP.md pour configurer RLS
-                    </p>
-                    <p className="text-xs text-red-500 mt-2">
-                      ou contactez: +44 774 934 3372
-                    </p>
-                  </div>
-                )}
-
-                {/* Name + Business — row 1 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Votre nom complet <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="Ex: Mohamed Benali"
-                      value={formData.name}
-                      onChange={(e) => handleChange("name", e.target.value)}
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Nom de votre entreprise <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="Ex: Cabinet Dentaire Al Amal"
-                      value={formData.businessName}
-                      onChange={(e) => handleChange("businessName", e.target.value)}
-                    />
-                    {errors.businessName && (
-                      <p className="text-red-500 text-xs mt-1">{errors.businessName}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Niche + City — row 2 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Votre secteur <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      className="form-input"
-                      value={formData.niche}
-                      onChange={(e) => handleChange("niche", e.target.value)}
-                    >
-                      <option value="">Choisissez votre secteur</option>
-                      {niches.map((n) => (
-                        <option key={n} value={n}>{n}</option>
-                      ))}
-                    </select>
-                    {errors.niche && (
-                      <p className="text-red-500 text-xs mt-1">{errors.niche}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Ville <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="Ex: Casablanca"
-                      value={formData.city}
-                      onChange={(e) => handleChange("city", e.target.value)}
-                    />
-                    {errors.city && (
-                      <p className="text-red-500 text-xs mt-1">{errors.city}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* WhatsApp — row 3, full width */}
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                    Votre WhatsApp <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    className="form-input"
-                    placeholder="+212 6XX XXX XXX"
-                    value={formData.whatsapp}
-                    onChange={(e) => handleChange("whatsapp", e.target.value)}
-                  />
-                  {errors.whatsapp && (
-                    <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-urgent w-full py-4 text-base"
-                  disabled={submitting}
-                >
-                  {submitting ? "Envoi en cours…" : "Démarrer mon Essai Gratuit"}
-                  {!submitting && <ArrowRight size={18} />}
-                </button>
-
-                <p className="text-center text-xs text-slate-400">
-                  🔒 Données sécurisées · Sans engagement · Sans carte bancaire
-                </p>
-              </form>
-            </motion.div>
-          )}
         </div>
       </div>
     </section>
