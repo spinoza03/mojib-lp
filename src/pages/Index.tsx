@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
 import StatsBar from "@/components/StatsBar";
@@ -14,6 +15,35 @@ declare global {
     fbq?: (...args: unknown[]) => void;
   }
 }
+
+const StickyCtaButton = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show after scrolling past the hero (~600px)
+      setVisible(window.scrollY > 600);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <a
+      href="#lead-form"
+      className="fixed bottom-6 right-6 z-50 btn-urgent py-3 px-6 text-sm shadow-xl animate-in fade-in slide-in-from-bottom-4"
+      style={{
+        animation: visible ? "slideUp 0.3s ease-out" : undefined,
+        boxShadow: "0 8px 32px rgba(37,137,208,0.35)",
+      }}
+    >
+      Essai Gratuit
+      <ArrowRight size={16} />
+    </a>
+  );
+};
 
 const Index = () => {
   useEffect(() => {
@@ -34,6 +64,7 @@ const Index = () => {
       <PricingSection />
       <LeadFormSection />
       <Footer />
+      <StickyCtaButton />
     </div>
   );
 };
