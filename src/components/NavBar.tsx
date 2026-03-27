@@ -47,7 +47,7 @@ const NavBar = () => {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="#lead-form" className="text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors">
+            <a href="https://app.mojib.online" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors">
               Se connecter
             </a>
             <a href="#lead-form" className="btn-primary text-sm py-2 px-5">

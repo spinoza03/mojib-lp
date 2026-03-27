@@ -21,7 +21,7 @@ const Footer = () => (
             style={{ filter: "brightness(0) invert(1)" }}
           />
           <p className="text-slate-400 text-sm leading-relaxed max-w-xs mb-6">
-            L'assistant IA qui gère votre business 24h/24. Conçu pour les professionnels du Maroc.
+            La plateforme de gestion tout-en-un — CRM, stock, finance et IA. Conçue pour les professionnels du Maroc.
           </p>
           <a
             href="https://wa.me/447749343372"
@@ -71,10 +71,11 @@ const Footer = () => (
           </h4>
           <ul className="space-y-2.5">
             {[
-              "Cliniques Médicales",
+              "Cabinets Dentaires",
+              "Médecins & Spécialistes",
+              "Centres d'Esthétique",
               "Immobilier",
-              "Esthétique",
-              "Formation",
+              "Restaurants & Cafés",
             ].map((label) => (
               <li key={label}>
                 <a

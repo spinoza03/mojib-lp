@@ -1,54 +1,46 @@
 import { motion } from "framer-motion";
-import { Home, Stethoscope, Scissors, BookOpen, Dumbbell, Utensils } from "lucide-react";
+import { Home, Stethoscope, Scissors, Utensils } from "lucide-react";
 
 const industries = [
   {
     icon: Stethoscope,
-    title: "Cliniques Médicales",
-    description: "Dentaires, généralistes, spécialistes",
+    title: "Cabinets Dentaires",
+    description: "Gestion patients, RDV, stock matériel dentaire",
     color: "#2589D0",
     bg: "#EBF5FF",
     tag: "Populaire",
   },
   {
-    icon: Home,
-    title: "Immobilier",
-    description: "Agences, promoteurs, gérants",
-    color: "#7C3AED",
-    bg: "#F5F3FF",
-    tag: null,
+    icon: Stethoscope,
+    title: "Médecins & Spécialistes",
+    description: "Généralistes, dermatologues, pédiatres...",
+    color: "#0D9488",
+    bg: "#F0FDFA",
+    tag: "Populaire",
   },
   {
     icon: Scissors,
     title: "Centres d'Esthétique",
-    description: "Salons, spas, beauty centers",
+    description: "Salons, spas, beauty centers, soins",
     color: "#DB2777",
     bg: "#FDF2F8",
-    tag: null,
+    tag: "Populaire",
   },
   {
-    icon: BookOpen,
-    title: "Centres de Formation",
-    description: "Auto-écoles, écoles privées, coaching",
-    color: "#DD6B20",
-    bg: "#FFF7ED",
-    tag: null,
-  },
-  {
-    icon: Dumbbell,
-    title: "Fitness & Bien-être",
-    description: "Salles de sport, yoga, nutrition",
-    color: "#059669",
-    bg: "#ECFDF5",
-    tag: null,
+    icon: Home,
+    title: "Immobilier",
+    description: "Agences, promoteurs, gérants de biens",
+    color: "#7C3AED",
+    bg: "#F5F3FF",
+    tag: "Actif",
   },
   {
     icon: Utensils,
     title: "Restaurants & Cafés",
-    description: "Réservations et commandes",
+    description: "Réservations, commandes, gestion stock",
     color: "#B45309",
     bg: "#FFFBEB",
-    tag: "Bientôt",
+    tag: "Actif",
   },
 ];
 
@@ -68,7 +60,7 @@ const IndustrySection = () => (
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {industries.map((industry, i) => (
           <motion.a
             key={industry.title}

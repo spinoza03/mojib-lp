@@ -229,21 +229,21 @@ const HeroSection = () => {
 
             {/* Headline */}
             <h1 className="section-title mb-6">
-              L'Assistant IA qui gère votre{" "}
+              La plateforme tout-en-un pour gérer votre{" "}
               <span className="blue-gradient-text">Business 24h/24</span>
             </h1>
 
             {/* Sub-headline */}
             <p className="section-subtitle mb-8">
-              Automatisez vos réservations, répondez à vos clients sur WhatsApp et ne perdez plus jamais un prospect — même la nuit.
+              CRM, gestion de stock, finance, réservations et agent IA WhatsApp — tous les outils dont les cabinets médicaux, agences immobilières et restaurants ont besoin pour croître.
             </p>
 
             {/* Value props */}
             <ul className="space-y-3 mb-10">
               {[
-                "Répond à chaque message en 3 secondes, en Darija ou Français",
-                "Gère votre calendrier et confirme les RDV automatiquement",
-                "Réduit les no-shows de 80% grâce aux rappels automatiques",
+                "Outils de gestion complets : CRM, stock, finance et reporting",
+                "Agent IA WhatsApp qui répond et réserve automatiquement 24/7",
+                "Conçu pour le médical, l'immobilier et la restauration au Maroc",
               ].map((text) => (
                 <li key={text} className="flex items-start gap-3">
                   <div

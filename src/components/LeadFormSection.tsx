@@ -4,11 +4,10 @@ import { ArrowRight, CheckCircle, Shield, Clock, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 const niches = [
-  "Clinique / Cabinet Médical",
-  "Immobilier",
+  "Cabinet Dentaire",
+  "Médecin / Spécialiste",
   "Centre d'Esthétique / Salon",
-  "Centre de Formation / Auto-école",
-  "Fitness / Salle de Sport",
+  "Immobilier",
   "Restaurant / Café",
   "Autre",
 ];
@@ -230,10 +229,14 @@ const LeadFormSection = () => {
             >
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                 {dbError && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-700">{dbError}</p>
-                    <p className="text-xs text-red-600 mt-1">
-                      Contactez l'équipe si le problème persiste: +44 774 934 3372
+                  <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded">
+                    <p className="text-sm font-semibold text-red-700">Erreur de sauvegarde</p>
+                    <p className="text-xs text-red-600 mt-2 font-mono">{dbError}</p>
+                    <p className="text-xs text-red-600 mt-3">
+                      📋 <strong>Solution:</strong> Voir le fichier SUPABASE_SETUP.md pour configurer RLS
+                    </p>
+                    <p className="text-xs text-red-500 mt-2">
+                      ou contactez: +44 774 934 3372
                     </p>
                   </div>
                 )}
