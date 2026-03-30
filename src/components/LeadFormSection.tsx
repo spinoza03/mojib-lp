@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Shield, Clock, Users } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -19,6 +20,7 @@ const trustPoints = [
 ];
 
 const LeadFormSection = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     businessName: "",
@@ -99,21 +101,20 @@ const LeadFormSection = () => {
       content_category: formData.niche,
     });
 
-    const message =
-      `Bonjour, je souhaite démarrer avec Mojib !\n\n` +
-      `👤 Nom : ${formData.name}\n` +
-      `🏢 Business : ${formData.businessName}\n` +
-      `📍 Secteur : ${formData.niche}\n` +
-      `🌆 Ville : ${formData.city}\n` +
-      `📱 WhatsApp : ${formData.whatsapp}`;
-
     setSubmitting(false);
     setSubmitted(true);
+
+    // Navigate to thank-you page with user data
     setTimeout(() => {
-      window.open(
-        `https://wa.me/447749343372?text=${encodeURIComponent(message)}`,
-        "_blank"
-      );
+      navigate("/thank-you", {
+        state: {
+          name: formData.name,
+          businessName: formData.businessName,
+          niche: formData.niche,
+          city: formData.city,
+          whatsapp: formData.whatsapp,
+        },
+      });
     }, 400);
   };
 

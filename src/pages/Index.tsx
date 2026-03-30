@@ -10,6 +10,7 @@ import IndustrySection from "@/components/IndustrySection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import PricingSection from "@/components/PricingSection";
 import LeadFormSection from "@/components/LeadFormSection";
+import TrustGuarantees from "@/components/TrustGuarantees";
 import Footer from "@/components/Footer";
 
 declare global {
@@ -66,6 +67,7 @@ const Index = () => {
       <IndustrySection />
       <HowItWorksSection />
       <PricingSection />
+      <TrustGuarantees />
       <LeadFormSection />
       <Footer />
       <StickyCtaButton />
