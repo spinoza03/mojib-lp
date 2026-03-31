@@ -99,13 +99,17 @@ const Footer = () => (
           © {new Date().getFullYear()} Mojib. Tous droits réservés.
         </p>
         <div className="flex items-center gap-6">
-          {["Confidentialité", "Mentions légales", "CGU"].map((item) => (
+          {[
+            { label: "Confidentialité", href: "#" },
+            { label: "Mentions légales", href: "#" },
+            { label: "CGU", href: "/terms-of-service" },
+          ].map(({ label, href }) => (
             <a
-              key={item}
-              href="#"
+              key={label}
+              href={href}
               className="text-slate-500 hover:text-slate-300 text-sm transition-colors"
             >
-              {item}
+              {label}
             </a>
           ))}
         </div>
