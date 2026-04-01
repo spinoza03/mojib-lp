@@ -672,7 +672,7 @@ const HowItWorksSection = () => (
 ═══════════════════════════════════════════════════════════════════ */
 const arPlans = [
   {
-    name: "المنظَّم", price: "299", tagline: "نظّم كل شي وما تضيع ورقة.", tag: null, accentColor: "#64748B", featured: false, cta: "ابدأ الآن",
+    name: "المنظَّم", price: "162", tagline: "نظّم كل شي وما تضيع ورقة.", tag: null, accentColor: "#64748B", featured: false, cta: "ابدأ الآن",
     features: [
       { text: "CRM ذكي (عملاء، مرضى، عقارات)", included: true },
       { text: "تقويم الحجوزات", included: true },
@@ -686,7 +686,7 @@ const arPlans = [
     ],
   },
   {
-    name: "الذكي", price: "499", tagline: "الذكاء الاصطناعي يشتغل لك وانت نايم.", tag: "الأكثر طلباً", accentColor: "#2589D0", featured: true, cta: "جرّب مجاناً 7 أيام",
+    name: "الذكي", price: "297", tagline: "الذكاء الاصطناعي يشتغل لك وانت نايم.", tag: "الأكثر طلباً", accentColor: "#2589D0", featured: true, cta: "جرّب مجاناً 7 أيام",
     features: [
       { text: "كل مميزات المنظَّم", included: true },
       { text: "عميل واتساب الذكي 24/7", included: true },
@@ -700,7 +700,7 @@ const arPlans = [
     ],
   },
   {
-    name: "الاحترافي", price: "799", tagline: "الباقة الكاملة لتسود في سوقك.", tag: null, accentColor: "#7C3AED", featured: false, cta: "تواصل مع الفريق",
+    name: "الاحترافي", price: "487", tagline: "الباقة الكاملة لتسود في سوقك.", tag: null, accentColor: "#7C3AED", featured: false, cta: "تواصل مع الفريق",
     features: [
       { text: "كل مميزات الذكي", included: true },
       { text: "موقع ويب احترافي مخصص", included: true },
@@ -737,13 +737,13 @@ const PricingSection = () => (
               <h3 className="text-xl font-extrabold text-slate-900 mb-1">{plan.name}</h3>
               <p className="text-sm text-slate-500 leading-relaxed mb-5">{plan.tagline}</p>
               <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 text-[11px] font-bold px-2.5 py-1 rounded-full mb-2">
-                <span>🔥</span><span>خصم 50% لأول شهرين</span>
+                <span>🔥</span><span>خصم 50% للشهر الأول</span>
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-5xl font-black" style={{ color: plan.accentColor }}>{Math.round(Number(plan.price) / 2)}</span>
                 <span className="text-slate-400 text-sm font-medium">ر.س / شهر</span>
               </div>
-              <p className="text-sm text-slate-400 mt-1">ثم <span className="font-semibold text-slate-500">{plan.price} ر.س/شهر</span> من الشهر الثالث</p>
+              <p className="text-sm text-slate-400 mt-1">ثم <span className="font-semibold text-slate-500">{plan.price} ر.س/شهر</span> من الشهر الثاني</p>
             </div>
             <a href="#lead-form" className="block w-full text-center py-3 rounded-xl font-semibold text-sm mb-6 transition-all duration-200"
               style={plan.featured ? { backgroundColor: plan.accentColor, color: "white" } : { border: `2px solid ${plan.accentColor}`, color: plan.accentColor, backgroundColor: "transparent" }}
