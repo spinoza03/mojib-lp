@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 import {
   ArrowLeft, Check, Star, MessageCircle, Database, CalendarCheck,
   TrendingUp, Package, Home, Stethoscope, Scissors, Utensils,
@@ -808,6 +809,7 @@ const LeadFormSection = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dbError, setDbError] = useState("");
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -824,8 +826,35 @@ const LeadFormSection = () => {
     ev.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
+    setDbError("");
+
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        clinic_name: formData.businessName.trim(),
+        industry: formData.niche,
+        city: formData.city.trim(),
+        whatsapp: formData.whatsapp.trim(),
+        status: "new",
+      });
+
+      if (error) {
+        const msg =
+          error.code === "PGRST116" ? "RLS يحجب الإدراج. قم بتعطيل RLS على جدول leads في Supabase." :
+          error.code === "42P01"    ? "جدول leads غير موجود. أنشئه في Supabase." :
+          `${error.code}: ${error.message}`;
+        setDbError(msg);
+        setSubmitting(false);
+        return;
+      }
+    } catch (err: any) {
+      setDbError(`خطأ في الاتصال: ${err?.message || "تعذّر الوصول إلى Supabase"}`);
+      setSubmitting(false);
+      return;
+    }
+
     window.fbq?.("track", "Lead", { content_name: "Mojib Free Trial AR", content_category: formData.niche });
-    await new Promise(r => setTimeout(r, 600));
+
     setSubmitting(false);
     setSubmitted(true);
     setTimeout(() => {
@@ -866,6 +895,12 @@ const LeadFormSection = () => {
             ) : (
               <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-100">
                 <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  {dbError && (
+                    <div className="p-4 bg-red-50 border-r-4 border-red-500 rounded">
+                      <p className="text-sm font-semibold text-red-700">خطأ في الحفظ</p>
+                      <p className="text-xs text-red-600 mt-1 font-mono">{dbError}</p>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-1.5">نامك الكامل <span className="text-red-500">*</span></label>
@@ -997,6 +1032,8 @@ const StickyBtn = () => {
 ═══════════════════════════════════════════════════════════════════ */
 const IndexAr = () => {
   useEffect(() => {
+    // SPA route change — re-fire PageView so the pixel tracks this route
+    window.fbq?.("track", "PageView");
     window.fbq?.("track", "ViewContent", { content_name: "Mojib Landing Page AR", content_category: "SaaS / AI Assistant" });
   }, []);
 

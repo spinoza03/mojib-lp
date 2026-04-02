@@ -124,6 +124,7 @@ const ThankYouAr = () => {
   }, [state, navigate]);
 
   useEffect(() => {
+    window.fbq?.("track", "PageView");
     window.fbq?.("track", "CompleteRegistration", { content_name: "Mojib Thank You AR" });
   }, []);
 
